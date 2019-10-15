@@ -1,5 +1,6 @@
 com\sg\supersightings\App.class
 com\sg\supersightings\entity\Powers.class
+com\sg\supersightings\Dao\SightingsDaoDB.class
 com\sg\supersightings\Dao\OrganizationsDaoDB$OrgMapper.class
 com\sg\supersightings\Dao\SupersDaoDB$SuperMapper.class
 com\sg\supersightings\Dao\SupersDaoDB.class
@@ -11,6 +12,7 @@ com\sg\supersightings\Dao\LocationsDaoDB.class
 com\sg\supersightings\Dao\SupersDao.class
 com\sg\supersightings\Dao\LocationsDao.class
 com\sg\supersightings\Dao\LocationsDaoDB$LocationMapper.class
+com\sg\supersightings\Dao\SightingsDaoDB$SightingMapper.class
 com\sg\supersightings\entity\Locations.class
 com\sg\supersightings\entity\Organizations.class
 com\sg\supersightings\Dao\SightingsDao.class

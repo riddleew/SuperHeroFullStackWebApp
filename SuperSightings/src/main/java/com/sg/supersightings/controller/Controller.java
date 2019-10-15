@@ -15,6 +15,7 @@ import com.sg.supersightings.entity.Organizations;
 import com.sg.supersightings.entity.Powers;
 import com.sg.supersightings.entity.Sightings;
 import com.sg.supersightings.entity.Supers;
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,6 +88,11 @@ public class Controller {
         return orgs.getAllOrganizations();
     }
     
+    @GetMapping("/org/{org_id}")
+    public Organizations getOrganizationById(@PathVariable("org_id") int orgId) {
+        return orgs.getOrganizationById(orgId);
+    }
+    
     @GetMapping("/locations")
     public List<Locations> getAllLocations() {
         return locations.getAllLocations();
@@ -97,13 +103,30 @@ public class Controller {
         return sightings.getAllSightings();
     }
     
+    @GetMapping("/sighting/{sighting_id}")
+    public Sightings getSightingById(@PathVariable("sighting_id") int sightingId) {
+        return sightings.getSightingById(sightingId);
+    }
+    
+    @GetMapping("/supersbylocation/{loc_id}")
+    public List<Supers> getSupersByLocation(@PathVariable("loc_id") int locationId) {
+        return sightings.getSupersByLocation(locationId);
+    }
+    
+    @GetMapping("/locationsbysuper/{super_id}")
+    public List<Locations> getLocationsBySuper(@PathVariable("super_id") int superId) {
+        return sightings.getLocationsBySuper(superId);
+    }
+    
+    @GetMapping("/sightingsbydate/{date}")
+    public List<Sightings> getSightingsByDate(@PathVariable("date") String date) {
+        return sightings.getSightingByDate(date);
+    }
+    
     @GetMapping("/location/{loc_id}")
     public Locations getLocationById(@PathVariable("loc_id") int locationId) {
         return locations.getLocationById(locationId);
     }
     
-    @GetMapping("/org/{org_id}")
-    public Organizations getOrganizationById(@PathVariable("org_id") int orgId) {
-        return orgs.getOrganizationById(orgId);
-    }
+  
 }

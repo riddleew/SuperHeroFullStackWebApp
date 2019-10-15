@@ -103,7 +103,7 @@ public class OrganizationsDaoDBTest {
     }
     
     @Test
-    public void testUpdatePower() {
+    public void testUpdateOrganization() {
         Organizations org = new Organizations();
         org.setName("Test Organization Name");
         org.setDescription("Test Organization Description");

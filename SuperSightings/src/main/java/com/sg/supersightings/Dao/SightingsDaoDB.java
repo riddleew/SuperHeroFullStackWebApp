@@ -5,10 +5,14 @@
  */
 package com.sg.supersightings.Dao;
 
+import com.sg.supersightings.entity.Locations;
 import com.sg.supersightings.entity.Sightings;
+import com.sg.supersightings.entity.Supers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -28,10 +32,12 @@ public class SightingsDaoDB implements SightingsDao {
     JdbcTemplate jdbc;
     
     @Autowired
-    SupersDao supers;
+    SupersDao supersDao;
     
     @Autowired
-    LocationsDao locations;
+    LocationsDao locationsDao;
+    
+    List<String> supersByLocation = new ArrayList<>();
     
     @Override
     public Sightings getSightingById(int id) {
@@ -39,8 +45,8 @@ public class SightingsDaoDB implements SightingsDao {
             final String SELECT_SIGHTING_BY_ID = "SELECT * FROM sightings WHERE sighting_id = ?";
             Sightings sighting = jdbc.queryForObject(SELECT_SIGHTING_BY_ID, new SightingMapper(), id);
             
-            sighting.setaSuper(supers.getSuperById(sighting.getSuperId()));
-            sighting.setLocation(locations.getLocationById(sighting.getLocationId()));
+            sighting.setaSuper(supersDao.getSuperById(sighting.getSuperId()));
+            sighting.setLocation(locationsDao.getLocationById(sighting.getLocationId()));
             return sighting;
         } catch(DataAccessException ex) {
             return null;
@@ -57,20 +63,18 @@ public class SightingsDaoDB implements SightingsDao {
     
     private void associateSupersAndLocations(List<Sightings> sightings) {
         for (Sightings sighting : sightings) {
-            sighting.setaSuper(supers.getSuperById(sighting.getSuperId()));
-            sighting.setLocation(locations.getLocationById(sighting.getLocationId()));
+            sighting.setaSuper(supersDao.getSuperById(sighting.getSuperId()));
+            sighting.setLocation(locationsDao.getLocationById(sighting.getLocationId()));
         }
     }
 
     @Override
     @Transactional
     public Sightings addSighting(Sightings sighting) {
-        final String INSERT_SIGHTING = "INSERT INTO sightings(super_id, loc_id, "
-                + "sighting_time) VALUES(?,?,?)";
+        final String INSERT_SIGHTING = "INSERT INTO sightings(super_id, loc_id) VALUES(?,?)";
         jdbc.update(INSERT_SIGHTING,
                 sighting.getSuperId(),
-                sighting.getLocationId(),
-                sighting.getSightingTime());
+                sighting.getLocationId());
 
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         sighting.setSightingId(newId);
@@ -95,6 +99,48 @@ public class SightingsDaoDB implements SightingsDao {
         jdbc.update(DELETE_SIGHTING, id);
     }
     
+ 
+    public List<Supers> getSupersByLocation(int locationId) {
+        final String SELECT_SUPERS_BY_LOCATION = "SELECT * FROM sightings WHERE loc_id = ?";
+        List<Sightings> sightings = jdbc.query(SELECT_SUPERS_BY_LOCATION, new SightingMapper(), locationId);
+        associateSupersAndLocations(sightings);
+        HashSet<Integer> superIds = new HashSet<>();
+        for (Sightings sighting : sightings) {
+            superIds.add(sighting.getSuperId());
+        }
+        List<Supers> supers = new ArrayList<>();
+        
+        for (int supId : superIds) {
+            supers.add(supersDao.getSuperById(supId));
+        }
+        
+        return supers;
+    }
+    
+    public List<Locations> getLocationsBySuper(int superId) {
+        final String SELECT_LOCATIONS_BY_SUPERS = "SELECT * FROM sightings WHERE super_id = ?";
+        List<Sightings> sightings = jdbc.query(SELECT_LOCATIONS_BY_SUPERS, new SightingMapper(), superId);
+        associateSupersAndLocations(sightings);
+        HashSet<Integer> locationIds = new HashSet<>();
+        for (Sightings sighting : sightings) {
+            locationIds.add(sighting.getLocationId());
+        }
+        List<Locations> locations = new ArrayList<>();
+        
+        for (int locId : locationIds) {
+            locations.add(locationsDao.getLocationById(locId));
+        }
+        
+        return locations;
+    }
+    
+    public List<Sightings> getSightingByDate(String date) {
+        final String SELECT_SIGHTINGS_BY_DATE = "SELECT * FROM sightings WHERE DATE(sighting_time) = ?";
+        List<Sightings> sightings = jdbc.query(SELECT_SIGHTINGS_BY_DATE, new SightingMapper(), date);
+        associateSupersAndLocations(sightings);
+        return sightings;
+    }
+    
     public static final class SightingMapper implements RowMapper<Sightings> {
 
         @Override
@@ -105,7 +151,6 @@ public class SightingsDaoDB implements SightingsDao {
             sighting.setLocationId(rs.getInt("loc_id"));
             
             Timestamp timestamp = rs.getTimestamp("sighting_time");
-            System.out.println("yo");
             sighting.setSightingTime(timestamp.toLocalDateTime());
 
             return sighting;

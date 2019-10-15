@@ -61,3 +61,7 @@ CREATE TABLE Super_Organization (
     FOREIGN KEY (org_id) REFERENCES Organizations (org_id)
 );
 
+select * from powers;
+select * from super_organization;
+select * from super_power;
+
