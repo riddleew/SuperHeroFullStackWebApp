@@ -37,7 +37,7 @@ CREATE TABLE Locations (
     loc_longitude VARCHAR(12) NOT NULL
 );
 
-CREATE TABLE Sighting (
+CREATE TABLE Sightings (
 	sighting_id INT PRIMARY KEY AUTO_INCREMENT,
     super_id INT NOT NULL,
     loc_id INT NOT NULL,

@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.sg.supersightings.Dao.SightingsDaoDBTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.905 s <<< FAILURE! - in com.sg.supersightings.Dao.SightingsDaoDBTest
+testAndGetSightings(com.sg.supersightings.Dao.SightingsDaoDBTest)  Time elapsed: 0.788 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.sg.supersightings.Dao.SightingsDaoDBTest.testAndGetSightings(SightingsDaoDBTest.java:100)
+

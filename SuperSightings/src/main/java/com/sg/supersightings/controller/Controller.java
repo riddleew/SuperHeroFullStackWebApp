@@ -8,6 +8,7 @@ package com.sg.supersightings.controller;
 import com.sg.supersightings.Dao.LocationsDaoDB;
 import com.sg.supersightings.Dao.OrganizationsDaoDB;
 import com.sg.supersightings.Dao.PowersDaoDB;
+import com.sg.supersightings.Dao.SightingsDaoDB;
 import com.sg.supersightings.Dao.SupersDaoDB;
 import com.sg.supersightings.entity.Locations;
 import com.sg.supersightings.entity.Organizations;
@@ -32,8 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
     @Autowired
     SupersDaoDB supers;
-    //@Autowired
-    //SightingsDaoDB sightings;
+    @Autowired
+    SightingsDaoDB sightings;
     @Autowired
     PowersDaoDB powers;
     @Autowired
@@ -89,5 +90,20 @@ public class Controller {
     @GetMapping("/locations")
     public List<Locations> getAllLocations() {
         return locations.getAllLocations();
+    }
+    
+    @GetMapping("/sightings")
+    public List<Sightings> getAllSightings() {
+        return sightings.getAllSightings();
+    }
+    
+    @GetMapping("/location/{loc_id}")
+    public Locations getLocationById(@PathVariable("loc_id") int locationId) {
+        return locations.getLocationById(locationId);
+    }
+    
+    @GetMapping("/org/{org_id}")
+    public Organizations getOrganizationById(@PathVariable("org_id") int orgId) {
+        return orgs.getOrganizationById(orgId);
     }
 }

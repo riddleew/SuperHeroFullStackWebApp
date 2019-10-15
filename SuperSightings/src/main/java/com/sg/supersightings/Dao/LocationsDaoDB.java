@@ -29,7 +29,7 @@ public class LocationsDaoDB implements LocationsDao {
     @Override
     public Locations getLocationById(int id) {
         try {
-            final String SELECT_LOCATION_BY_ID = "SELECT * FROM locations WHERE super_id = ?";
+            final String SELECT_LOCATION_BY_ID = "SELECT * FROM locations WHERE loc_id = ?";
             Locations location = jdbc.queryForObject(SELECT_LOCATION_BY_ID, new LocationMapper(), id);
             return location;  
         } catch(DataAccessException ex) {
@@ -67,7 +67,7 @@ public class LocationsDaoDB implements LocationsDao {
     public void updateLocation(Locations location) {
         final String UPDATE_LOCATION = "UPDATE locations SET loc_name = ?, "
                 + "loc_description = ?, loc_street = ?, loc_city = ?, loc_state = ?, "
-                + "loc_zip = ?, loc_latitude = ?, loc_longitude = ? WHERE id = ?";
+                + "loc_zip = ?, loc_latitude = ?, loc_longitude = ? WHERE loc_id = ?";
        
         jdbc.update(UPDATE_LOCATION,
                 location.getName(), 
@@ -84,7 +84,11 @@ public class LocationsDaoDB implements LocationsDao {
     @Override
     @Transactional
     public void deleteLocationById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_SIGHTING = "DELETE FROM sightings WHERE loc_id = ?";
+        jdbc.update(DELETE_SIGHTING, id);
+
+        final String DELETE_LOCATION = "DELETE FROM locations WHERE loc_id = ?";
+        jdbc.update(DELETE_LOCATION, id);
     }
     
     public static final class LocationMapper implements RowMapper<Locations> {

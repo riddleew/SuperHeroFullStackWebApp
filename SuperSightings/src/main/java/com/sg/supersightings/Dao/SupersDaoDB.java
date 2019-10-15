@@ -29,7 +29,7 @@ public class SupersDaoDB implements SupersDao {
 
     @Autowired
     JdbcTemplate jdbc;
-    
+
     @Override
     public Supers getSuperById(int id) {
         try {
@@ -38,7 +38,7 @@ public class SupersDaoDB implements SupersDao {
             aSuper.setPowers(getPowersForSuper(id));
             aSuper.setOrganizations(getOrganizationsForSuper(id));
             return aSuper;
-        } catch(DataAccessException ex) {
+        } catch (DataAccessException ex) {
             return null;
         }
     }
@@ -50,26 +50,26 @@ public class SupersDaoDB implements SupersDao {
         associatePowersAndOrgs(supers);
         return supers;
     }
-    
+
     private List<Powers> getPowersForSuper(int id) {
         final String SELECT_POWERS_FOR_SUPER = "SELECT p.* FROM powers p "
                 + "JOIN super_power sp ON sp.power_id = p.power_id WHERE sp.super_id = ?";
         return jdbc.query(SELECT_POWERS_FOR_SUPER, new PowerMapper(), id);
     }
-    
+
     private List<Organizations> getOrganizationsForSuper(int id) {
         final String SELECT_ORGS_FOR_SUPER = "SELECT o.* FROM organizations o "
                 + "JOIN super_organization so ON so.org_id = o.org_id WHERE so.super_id = ?";
         return jdbc.query(SELECT_ORGS_FOR_SUPER, new OrgMapper(), id);
     }
-    
+
     private void associatePowersAndOrgs(List<Supers> supers) {
         for (Supers aSuper : supers) {
             aSuper.setPowers(getPowersForSuper(aSuper.getId()));
             aSuper.setOrganizations(getOrganizationsForSuper(aSuper.getId()));
         }
     }
-    
+
     @Override
     @Transactional
     public Supers addSuper(Supers aSuper) {
@@ -86,24 +86,28 @@ public class SupersDaoDB implements SupersDao {
         insertSuperOrganization(aSuper);
         return aSuper;
     }
-    
+
     private void insertSuperPower(Supers aSuper) {
         final String INSERT_SUPER_POWER = "INSERT INTO "
                 + "super_power(super_id, power_id) VALUES(?,?)";
-        for(Powers power : aSuper.getPowers()) {
-            jdbc.update(INSERT_SUPER_POWER, 
-                    aSuper.getId(),
-                    power.getId());
+        if (aSuper.getPowers() != null) {
+            for (Powers power : aSuper.getPowers()) {
+                jdbc.update(INSERT_SUPER_POWER,
+                        aSuper.getId(),
+                        power.getId());
+            }
         }
     }
-    
+
     private void insertSuperOrganization(Supers aSuper) {
         final String INSERT_SUPER_ORGANIZATION = "INSERT INTO "
                 + "super_organization(super_id, org_id) VALUES(?,?)";
-        for(Organizations org : aSuper.getOrganizations()) {
-            jdbc.update(INSERT_SUPER_ORGANIZATION, 
-                    aSuper.getId(),
-                    org.getId());
+        if (aSuper.getOrganizations() != null) {
+            for (Organizations org : aSuper.getOrganizations()) {
+                jdbc.update(INSERT_SUPER_ORGANIZATION,
+                        aSuper.getId(),
+                        org.getId());
+            }
         }
     }
 
@@ -111,13 +115,13 @@ public class SupersDaoDB implements SupersDao {
     @Transactional
     public void updateSuper(Supers aSuper) {
         final String UPDATE_SUPER = "UPDATE supers SET super_name = ?, super_description = ?, "
-                + "super_is_hero = ? WHERE id = ?";
-        jdbc.update(UPDATE_SUPER, 
-                aSuper.getName(), 
-                aSuper.getDescription(), 
+                + "super_is_hero = ? WHERE super_id = ?";
+        jdbc.update(UPDATE_SUPER,
+                aSuper.getName(),
+                aSuper.getDescription(),
                 aSuper.isIsHero(),
                 aSuper.getId());
-        
+
         final String DELETE_SUPER_POWER = "DELETE FROM super_power WHERE super_id = ?";
         jdbc.update(DELETE_SUPER_POWER, aSuper.getId());
         insertSuperPower(aSuper);
@@ -131,17 +135,17 @@ public class SupersDaoDB implements SupersDao {
     public void deleteSuperById(int id) {
         final String DELETE_SUPER_POWER = "DELETE FROM super_power WHERE super_id = ?";
         jdbc.update(DELETE_SUPER_POWER, id);
-        
+
         final String DELETE_SUPER_ORG = "DELETE FROM super_organization WHERE super_id = ?";
         jdbc.update(DELETE_SUPER_ORG, id);
-        
+
         final String DELETE_SIGHTING = "DELETE FROM sightings WHERE super_id = ?";
         jdbc.update(DELETE_SIGHTING, id);
-        
-        final String DELETE_SUPER = "DELETE FROM supers WHERE id = ?";
+
+        final String DELETE_SUPER = "DELETE FROM supers WHERE super_id = ?";
         jdbc.update(DELETE_SUPER, id);
     }
-    
+
     public static final class SuperMapper implements RowMapper<Supers> {
 
         @Override
@@ -154,5 +158,5 @@ public class SupersDaoDB implements SupersDao {
             return aSuper;
         }
     }
-    
+
 }

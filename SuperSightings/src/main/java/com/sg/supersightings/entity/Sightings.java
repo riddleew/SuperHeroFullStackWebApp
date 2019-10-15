@@ -15,15 +15,25 @@ import java.util.Objects;
 public class Sightings {
     
     private int sightingId;
+    private int superId;
+    private int locationId;
     private Supers aSuper;
     private Locations location;
     private LocalDateTime sightingTime;
 
     public Sightings() {
     }
-
-    public Sightings(int sightingId, Supers aSuper, Locations location, LocalDateTime sightingTime) {
+    
+    public Sightings(int sightingId, int superId, int locationId) {
         this.sightingId = sightingId;
+        this.superId = superId;
+        this.locationId = locationId;
+    }
+
+    public Sightings(int sightingId, int superId, int locationId, Supers aSuper, Locations location, LocalDateTime sightingTime) {
+        this.sightingId = sightingId;
+        this.superId = superId;
+        this.locationId = locationId;
         this.aSuper = aSuper;
         this.location = location;
         this.sightingTime = sightingTime;
@@ -35,6 +45,22 @@ public class Sightings {
 
     public void setSightingId(int sightingId) {
         this.sightingId = sightingId;
+    }
+
+    public int getSuperId() {
+        return superId;
+    }
+
+    public void setSuperId(int superId) {
+        this.superId = superId;
+    }
+
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
     }
 
     public Supers getaSuper() {
@@ -63,11 +89,13 @@ public class Sightings {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + this.sightingId;
-        hash = 17 * hash + Objects.hashCode(this.aSuper);
-        hash = 17 * hash + Objects.hashCode(this.location);
-        hash = 17 * hash + Objects.hashCode(this.sightingTime);
+        int hash = 7;
+        hash = 53 * hash + this.sightingId;
+        hash = 53 * hash + this.superId;
+        hash = 53 * hash + this.locationId;
+        hash = 53 * hash + Objects.hashCode(this.aSuper);
+        hash = 53 * hash + Objects.hashCode(this.location);
+        hash = 53 * hash + Objects.hashCode(this.sightingTime);
         return hash;
     }
 
@@ -86,6 +114,12 @@ public class Sightings {
         if (this.sightingId != other.sightingId) {
             return false;
         }
+        if (this.superId != other.superId) {
+            return false;
+        }
+        if (this.locationId != other.locationId) {
+            return false;
+        }
         if (!Objects.equals(this.aSuper, other.aSuper)) {
             return false;
         }
@@ -100,6 +134,7 @@ public class Sightings {
 
     @Override
     public String toString() {
-        return "Sightings{" + "sightingId=" + sightingId + ", aSuper=" + aSuper + ", location=" + location + ", sightingTime=" + sightingTime + '}';
+        return "Sightings{" + "sightingId=" + sightingId + ", superId=" + superId + ", locationId=" + locationId + ", aSuper=" + aSuper + ", location=" + location + ", sightingTime=" + sightingTime + '}';
     }
+    
 }

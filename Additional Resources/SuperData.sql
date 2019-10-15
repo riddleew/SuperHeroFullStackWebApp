@@ -41,7 +41,7 @@ INSERT INTO Locations (loc_name, loc_description, loc_street, loc_city, loc_stat
 	("Lincoln Memorial", "American national monument built to honor the 16th President of the United States.", "2 Lincoln Memorial Cir NW", "Washington", "DC", "20037", "38.889275", "-77.050117"),
 	("Esports Arena", "The world's premier esports venue.", "255 2nd St", "Oakland", "CA", "94607", "37.794075", "-122.272382");
     
-INSERT INTO Sighting (super_id, loc_id, sighting_time) VALUES
+INSERT INTO Sightings (super_id, loc_id, sighting_time) VALUES
 	(1, 3, "2020-08-11 15:51:32"),
 	(2, 4, "2019-09-16 08:41:43"),
 	(1, 1, "2020-03-08 08:58:22"),

@@ -30,7 +30,7 @@ public class PowersDaoDB implements PowersDao {
     @Override
     public Powers getPowerById(int id) {
         try {
-            final String SELECT_POWER_BY_ID = "SELECT * FROM powers WHERE super_id = ?";
+            final String SELECT_POWER_BY_ID = "SELECT * FROM powers WHERE power_id = ?";
             Powers power = jdbc.queryForObject(SELECT_POWER_BY_ID, new PowerMapper(), id);
             return power;  
         } catch(DataAccessException ex) {
@@ -62,7 +62,7 @@ public class PowersDaoDB implements PowersDao {
     @Override
     public void updatePower(Powers power) {
         final String UPDATE_POWER = "UPDATE powers SET power_name = ?, power_description = ? " +
-                "WHERE id = ?";
+                "WHERE power_id = ?";
         jdbc.update(UPDATE_POWER,
                 power.getName(),
                 power.getDescription(),
@@ -75,7 +75,7 @@ public class PowersDaoDB implements PowersDao {
         final String DELETE_SUPER_POWER = "DELETE FROM super_power WHERE power_id = ?";
         jdbc.update(DELETE_SUPER_POWER, id);
         
-        final String DELETE_POWER = "DELETE FROM powers WHERE id = ?";
+        final String DELETE_POWER = "DELETE FROM powers WHERE power_id = ?";
         jdbc.update(DELETE_POWER, id);
     }
     

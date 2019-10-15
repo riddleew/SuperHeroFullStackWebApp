@@ -27,7 +27,7 @@ public class OrganizationsDaoDB implements OrganizationsDao {
 
     @Autowired
     JdbcTemplate jdbc;
-    
+
     @Override
     public Organizations getOrganizationById(int id) {
         try {
@@ -35,11 +35,11 @@ public class OrganizationsDaoDB implements OrganizationsDao {
             Organizations org = jdbc.queryForObject(SELECT_ORG_BY_ID, new OrgMapper(), id);
             org.setMembers(getMembersForOrg(id));
             return org;
-        } catch(DataAccessException ex) {
+        } catch (DataAccessException ex) {
             return null;
         }
     }
-    
+
     private List<Supers> getMembersForOrg(int id) {
         final String SELECT_MEMBERS_FOR_ORG = "SELECT s.* FROM supers s "
                 + "JOIN super_organization so ON so.super_id = s.super_id WHERE so.org_id = ?";
@@ -53,7 +53,7 @@ public class OrganizationsDaoDB implements OrganizationsDao {
         associateSupers(orgs);
         return orgs;
     }
-    
+
     private void associateSupers(List<Organizations> orgs) {
         for (Organizations org : orgs) {
             org.setMembers(getMembersForOrg(org.getId()));
@@ -75,14 +75,16 @@ public class OrganizationsDaoDB implements OrganizationsDao {
         insertSuperOrganization(org);
         return org;
     }
-    
+
     private void insertSuperOrganization(Organizations org) {
         final String INSERT_SUPER_ORG = "INSERT INTO "
                 + "super_organization(super_id, org_id) VALUES(?,?)";
-        for(Supers aSuper : org.getMembers()) {
-            jdbc.update(INSERT_SUPER_ORG, 
-                    aSuper.getId(),
-                    org.getId());
+        if (org.getMembers() != null) {
+            for (Supers aSuper : org.getMembers()) {
+                jdbc.update(INSERT_SUPER_ORG,
+                        aSuper.getId(),
+                        org.getId());
+            }
         }
     }
 
@@ -90,13 +92,13 @@ public class OrganizationsDaoDB implements OrganizationsDao {
     @Transactional
     public void updateOrganization(Organizations org) {
         final String UPDATE_ORG = "UPDATE organizations SET org_name = ?, org_description = ?, "
-                + "org_hotline = ? WHERE id = ?";
-        jdbc.update(UPDATE_ORG, 
-                org.getName(), 
-                org.getDescription(), 
+                + "org_hotline = ? WHERE org_id = ?";
+        jdbc.update(UPDATE_ORG,
+                org.getName(),
+                org.getDescription(),
                 org.getHotline(),
                 org.getId());
-        
+
         final String DELETE_SUPER_ORG = "DELETE FROM super_organization WHERE org_id = ?";
         jdbc.update(DELETE_SUPER_ORG, org.getId());
         insertSuperOrganization(org);
@@ -107,11 +109,11 @@ public class OrganizationsDaoDB implements OrganizationsDao {
     public void deleteOrganizationById(int id) {
         final String DELETE_SUPER_ORG = "DELETE FROM super_organization WHERE org_id = ?";
         jdbc.update(DELETE_SUPER_ORG, id);
-        
-        final String DELETE_ORG = "DELETE FROM organizations WHERE id = ?";
+
+        final String DELETE_ORG = "DELETE FROM organizations WHERE org_id = ?";
         jdbc.update(DELETE_ORG, id);
     }
-    
+
     public static final class OrgMapper implements RowMapper<Organizations> {
 
         @Override
