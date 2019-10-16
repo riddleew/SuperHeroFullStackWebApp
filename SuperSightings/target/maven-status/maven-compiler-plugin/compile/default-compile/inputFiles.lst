@@ -4,6 +4,9 @@ D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersight
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\entity\Locations.java
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\Dao\SightingsDao.java
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\Dao\LocationsDaoDB.java
+D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\controller\MyController.java
+D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\controller\MVCController.java
+D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\controller\SightingsController.java
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\entity\Organizations.java
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\Dao\SupersDao.java
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\entity\Sightings.java
@@ -14,5 +17,4 @@ D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersight
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\Dao\PowersDao.java
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\Dao\PowersDaoDB.java
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\entity\Powers.java
-D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\controller\Controller.java
 D:\Repos\SuperHeroFullStackWebApp\SuperSightings\src\main\java\com\sg\supersightings\Dao\SightingsDaoDB.java

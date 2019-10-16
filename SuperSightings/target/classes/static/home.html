@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<title>Super Sightings!</title>
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/styles.css" rel="stylesheet" type="text/css" />
+		<style>
+			.navb {
+				padding-right: 30px
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1 style="font-size: 4.0em" class="text-center">Super Sightings</h1>
+			<br><br>
+			<nav class="text-center">
+				<a class="btn badge-pill" href="home.html">Home</a>
+				<a class="btn badge-pill" href="http://localhost:8080/sightings.html">Sightings</a>
+				<a class="btn badge-pill" href="http://localhost:8080/supers.html">Supers</a>
+				<a class="btn badge-pill" href="http://localhost:8080/powers.html">Powers</a>
+				<a class="btn badge-pill" href="http://localhost:8080/locations.html">Locations</a>
+				<a class="btn badge-pill" href="http://localhost:8080/organizations.html">Organizations</a>	
+			</nav>
+			<br><br><br>
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<p>Lorem ipsum dolor amet humblebrag man braid shaman direct trade copper mug, ugh lomo small batch disrupt bushwick photo booth tattooed. Beard fixie kombucha roof party YOLO pabst 3 wolf moon pug dreamcatcher messenger bag woke tacos readymade health goth hammock. Fam jean shorts letterpress vape knausgaard vexillologist af viral church-key direct trade trust fund freegan. Hoodie master cleanse kale chips readymade tacos. Gentrify yr adaptogen, actually dreamcatcher yuccie tousled leggings stumptown austin cliche subway tile church-key. Cred readymade church-key ethical, retro edison bulb cray cronut austin kitsch green juice cloud bread beard. Next level helvetica artisan quinoa fixie jianbing.</p>
+				<br><br>
+				<h1 style="font-size: 3.0em" class="text-center">Recent Sightings</h1>
+				<br>
+				<table id="recentSightingsTable" class="table table-hover">
+                    <tr>
+                        <th width="25%">Super Name</th>
+                        <th width="25%">Place</th>
+                        <th width="25%">Date</th>
+                        <th width="25%">Time</th>
+                    </tr>
+                    
+                    <tbody id="contentRows"></tbody>
+                </table>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<script src="js/jquery-2.2.4.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/home.js"></script>
+    </body>
+</html>

@@ -34,3 +34,4 @@ INNER JOIN locations l ON  s.loc_id = l.loc_id
 WHERE DATE(s.sighting_time) = '2019-09-16';
 
 select * from sightings;
+select * from powers;

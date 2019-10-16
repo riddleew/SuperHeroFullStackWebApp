@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/")
-public class Controller {
+public class MyController {
     @Autowired
     SupersDaoDB supers;
     @Autowired
@@ -59,10 +59,7 @@ public class Controller {
         return supers.addSuper(aSuper);
     }
     
-    @GetMapping("/powers")
-    public List<Powers> getAllPowers() {
-        return powers.getAllPowers();
-    }
+    
     
     @GetMapping("/orgs")
     public List<Organizations> getAllOrgs() {
