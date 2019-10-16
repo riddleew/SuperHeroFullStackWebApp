@@ -55,7 +55,7 @@ public class SightingsDaoDB implements SightingsDao {
 
     @Override
     public List<Sightings> getAllSightings() {
-        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sightings";
+        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sightings ORDER BY sighting_time DESC";
         List<Sightings> sightings = jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());
         associateSupersAndLocations(sightings);
         return sightings;
@@ -140,6 +140,15 @@ public class SightingsDaoDB implements SightingsDao {
         associateSupersAndLocations(sightings);
         return sightings;
     }
+    
+    public List<Sightings> getRecentSightings() {
+        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sightings ORDER BY sighting_time DESC LIMIT 10";
+        List<Sightings> sightings = jdbc.query(SELECT_ALL_SIGHTINGS, new SightingsDaoDB.SightingMapper());
+        associateSupersAndLocations(sightings);
+        return sightings;
+    }
+    
+    
     
     public static final class SightingMapper implements RowMapper<Sightings> {
 

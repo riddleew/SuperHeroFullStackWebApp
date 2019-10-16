@@ -52,7 +52,8 @@ INSERT INTO Sightings (super_id, loc_id, sighting_time) VALUES
     (4, 4, "2020-06-11 13:22:08"),
     (3, 5, "2018-11-16 17:01:21"),
     (3, 1, "2020-07-24 04:08:40"),
-    (2, 5, "2020-03-04 09:11:18");
+    (2, 5, "2020-03-04 09:11:18"),
+    (5, 1, "2020-09-22 15:49:35");
     
 INSERT INTO Organizations (org_name, org_description, org_hotline) VALUES 
 	("The Avengers", "A team of superheroes assembled by Nick Fury", "(291) 553-0508"),

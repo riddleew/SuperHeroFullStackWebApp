@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<title>Super Sightings!</title>
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/styles.css" rel="stylesheet" type="text/css" />
+		<style>
+			.navb {
+				padding-right: 30px
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1 style="font-size: 4.0em" class="text-center">Super Sightings</h1>
+			<br><br>
+			<nav class="text-center">
+				<a class="btn badge-pill" href="home.html">Home</a>
+				<a class="btn badge-pill" href="sightings.html">Sightings</a>
+				<a class="btn badge-pill" href="supers.html">Supers</a>
+				<a class="btn badge-pill" href="powers.html">Powers</a>
+				<a class="btn badge-pill" href="locations.html">Locations</a>
+				<a class="btn badge-pill" href="organizations.html">Organizations</a>	
+			</nav>
+			<br><br><br>
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				
+				<br><br>
+				<h1 style="font-size: 3.0em" class="text-center">Recent Sightings</h1>
+				<br>
+				<table id="contactTable" class="table table-hover">
+                            <tr>
+                                <th width="20%">Super Name</th>
+                                <th width="20%">Place</th>
+                                <th width="20%">Date</th>
+                                <th width="20%">Time</th>
+                                <th width="10%"></th>
+                                <th width="10%"></th>
+                            </tr>
+                            
+                            <tbody id="contentRows"></tbody>
+                        </table>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<script src="js/jquery-2.2.4.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/sightings.js"></script>
+    </body>
+</html>

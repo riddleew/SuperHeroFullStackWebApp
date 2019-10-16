@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author riddl
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 public class Controller {
     @Autowired
     SupersDaoDB supers;
@@ -43,25 +43,6 @@ public class Controller {
     @Autowired
     OrganizationsDaoDB orgs;
     
-//    @GetMapping("/locations")
-//    public List<Locations> getAllLocations() {
-//        return locations.findAll();
-//    }
-
-//    @GetMapping("/orgs")
-//    public List<Organizations> getAllOrganizations() {
-//        return orgs.findAll();
-//    }
-    
-//    @GetMapping("/sightings")
-//    public List<Sightings> getAllSightings() {
-//        return sightings.findAll();
-//    }
-    
-//    @GetMapping("/powers")
-//    public List<Powers> getAllPowers() {
-//        return powers.findAll();
-//    }
     
     @GetMapping("/supers")
     public List<Supers> getAllSupers() {
@@ -98,30 +79,20 @@ public class Controller {
         return locations.getAllLocations();
     }
     
-    @GetMapping("/sightings")
-    public List<Sightings> getAllSightings() {
-        return sightings.getAllSightings();
-    }
     
-    @GetMapping("/sighting/{sighting_id}")
-    public Sightings getSightingById(@PathVariable("sighting_id") int sightingId) {
-        return sightings.getSightingById(sightingId);
-    }
     
-    @GetMapping("/supersbylocation/{loc_id}")
-    public List<Supers> getSupersByLocation(@PathVariable("loc_id") int locationId) {
-        return sightings.getSupersByLocation(locationId);
-    }
+//    @GetMapping("/recentsightings")
+//    public List<Sightings> getRecentSightings() {
+//        return sightings.getRecentSightings();
+//    }
     
-    @GetMapping("/locationsbysuper/{super_id}")
-    public List<Locations> getLocationsBySuper(@PathVariable("super_id") int superId) {
-        return sightings.getLocationsBySuper(superId);
-    }
     
-    @GetMapping("/sightingsbydate/{date}")
-    public List<Sightings> getSightingsByDate(@PathVariable("date") String date) {
-        return sightings.getSightingByDate(date);
-    }
+    
+    
+    
+    
+    
+    
     
     @GetMapping("/location/{loc_id}")
     public Locations getLocationById(@PathVariable("loc_id") int locationId) {
