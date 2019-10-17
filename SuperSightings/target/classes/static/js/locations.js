@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 
 function loadLocations() {
-	clearSightingsTable();
+	clearLocationsTable();
 	var contentRows = $('#contentRows'); 
 
 	$.ajax({
@@ -47,16 +47,16 @@ function loadLocations() {
 	});
 }
 
-function clearSightingsTable() {
+function clearLocationsTable() {
 	$('#contentRows').empty();
 }
 
-function deleteSighting(sightingId) {
+function deleteLocation(locationId) {
 	$.ajax({
 		type: 'DELETE',
-		url: 'http://localhost:8080/sighting/' + sightingId,
+		url: 'http://localhost:8080/location/' + locationId,
 		success: function() {
-			loadSightings();
+			loadLocations();
 		}
 	});
 }

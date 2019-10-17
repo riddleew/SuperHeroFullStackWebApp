@@ -47,6 +47,84 @@ $(document).ready(function () {
 
 
 
+$('#add-add-button').click(function (event) {
+
+    // var haveValidationErrors = checkAndDisplayValidationErrors($('#add-form').find('input'));
+
+    // if(haveValidationErrors) {
+    //   return false;
+    // }
+
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/power',
+      data: JSON.stringify({
+        name: $('#add-power-name').val(),
+        description: $('#add-power-description').val()
+      }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      'dataType': 'json',
+      success: function() {
+        $('#errorMessages').empty();
+        $('#add-power-name').val('');
+        $('#add-power-description').val('');
+        $('#addFormDiv').hide();
+        $('#powerTableDiv').show();
+        loadPowers();
+      },
+      error: function() {
+        $('#errorMessages')
+          .append($('<li>')
+          .attr({class: 'list-group-item list-group-item-danger'})
+          .text('Error calling web service. Please try again later.'));
+      }
+    });
+
+  });
+
+$('#confirm-add-power').click(function (event) {
+    var nameish = $('#add-power-name').val();
+    console.log(nameish);
+
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/power',
+      data: JSON.stringify({
+        name: $('#add-power-name').val(),
+        description: $('#add-power-description').val()
+      }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      'dataType': 'json',
+      success: function() {
+        $('#errorMessages').empty();
+        $('#add-power-name').val('');
+        $('#add-power-description').val('');
+        $('#addFormDiv').hide();
+        $('#powerTableDiv').show();
+        loadPowers();
+      },
+      error: function() {
+        $('#errorMessages')
+          .append($('<li>')
+          .attr({class: 'list-group-item list-group-item-danger'})
+          .text('Error calling web service. Please try again later.'));
+      }
+    });
+    // var haveValidationErrors = checkAndDisplayValidationErrors($('#add-form').find('input'));
+
+    // if(haveValidationErrors) {
+    //   return false;
+    // }
+
+  });
+
+
 });
 
 function loadPowers() {
@@ -118,10 +196,20 @@ function hideEditForm() {
     $('#powerTableDiv').show();
 }
 
+function hideAddForm() {
+    // clear errorMessages
+    $('#errorMessages').empty();
+    // clear the form and then hide it
+    $('#add-power-name').val('');
+    $('#add-power-description').val('');
+    $('#addFormDiv').hide();
+    $('#powerTableDiv').show();
+}
+
 function deletePower(powerId, name) {
 	//var stringName = String(name);
 	//console.log(newName);
-    if(!confirm('Are you sure you want to remove the power from the list?')) {
+    if(!confirm('Are you sure you want to remove "' + name + '" from the list?')) {
     	return;
     }
     $.ajax ({

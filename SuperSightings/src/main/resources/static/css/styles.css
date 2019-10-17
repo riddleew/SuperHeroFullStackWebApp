@@ -11,3 +11,20 @@ nav .btn:hover {
     font-weight: bold;
     color: #ffffff;
 }
+
+#add-button {
+	background-color: #0060aa;
+	color: #fef9ff;
+}
+
+#add-button:hover {
+	font-weight: bold;
+    color: #ffed10;
+}
+
+.right {
+  position: center;
+  right: 0px;
+  width: 150px;
+  
+  }

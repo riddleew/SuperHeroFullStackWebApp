@@ -71,10 +71,7 @@ public class MyController {
         return orgs.getOrganizationById(orgId);
     }
     
-    @GetMapping("/locations")
-    public List<Locations> getAllLocations() {
-        return locations.getAllLocations();
-    }
+    
     
     
     
@@ -91,10 +88,7 @@ public class MyController {
     
     
     
-    @GetMapping("/location/{loc_id}")
-    public Locations getLocationById(@PathVariable("loc_id") int locationId) {
-        return locations.getLocationById(locationId);
-    }
+    
     
   
 }

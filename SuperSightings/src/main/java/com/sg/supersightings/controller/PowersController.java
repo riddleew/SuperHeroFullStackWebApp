@@ -53,4 +53,9 @@ public class PowersController {
         powersDao.deletePowerById(powerId);
         return new Powers();
     }
+    
+    @PostMapping("/power")
+    public Powers addPower(@RequestBody Powers power) {
+        return powersDao.addPower(power);
+    }
 }

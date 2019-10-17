@@ -29,7 +29,39 @@
 				<br><br><br>
 				<h1 style="font-size: 2.0em" class="text-center">Locations Where A Super Has Been Sighted!</h1>
 				<br>
-				<table id="recentSightingsTable" class="table table-hover">
+
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-whatever="@mdo">Add Location</button>
+                    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLabel">Register a new location</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                  <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Location:</label>
+                                    <input type="text" class="form-control" id="add-location-name">
+                                  </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Desciption:</label>
+                                    <textarea class="form-control" id="add-location-description"></textarea>
+                                </div>
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" id="confirm-add-location" data-dismiss="modal" class="btn btn-primary">Add Location</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                <br><br>
+				<table id="LocationsTable" class="table table-hover">
                     <tr>
                         <th width="15%">Name</th>
                         <th>Description</th>
