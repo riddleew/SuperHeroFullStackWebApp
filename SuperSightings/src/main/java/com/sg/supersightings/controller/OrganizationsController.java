@@ -5,9 +5,8 @@
  */
 package com.sg.supersightings.controller;
 
-import com.sg.supersightings.Dao.LocationsDaoDB;
-import com.sg.supersightings.entity.Locations;
-import com.sg.supersightings.entity.Powers;
+import com.sg.supersightings.Dao.OrganizationsDaoDB;
+import com.sg.supersightings.entity.Organizations;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,40 +22,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author EricR
+ * @author riddl
  */
+
 @RestController
 @RequestMapping("/")
-public class LocationsController {
+public class OrganizationsController {
     
     @Autowired
-    LocationsDaoDB locationsDao;
+    OrganizationsDaoDB orgsDao;
     
-    @PostMapping("/location")
-    public Locations addLocation(@RequestBody Locations location) {
-        return locationsDao.addLocation(location);
+    @PostMapping("/org")
+    public Organizations addOrganizations(@RequestBody Organizations org) {
+        return orgsDao.addOrganization(org);
     }
     
-    @GetMapping("/locations")
-    public List<Locations> getAllLocations() {
-        return locationsDao.getAllLocations();
+    @GetMapping("/orgs")
+    public List<Organizations> getAllOrganizations() {
+        return orgsDao.getAllOrganizations();
     }
     
-    @GetMapping("/location/{loc_id}")
-    public Locations getLocationById(@PathVariable("loc_id") int locationId) {
-        return locationsDao.getLocationById(locationId);
+    @GetMapping("/org/{org_id}")
+    public Organizations getOrganizationsById(@PathVariable("org_id") int orgId) {
+        return orgsDao.getOrganizationById(orgId);
     }
     
-    @PutMapping("/location/{loc_id}")
-    public Locations updateLocation(@RequestBody Locations location) {
-        locationsDao.updateLocation(location);   
-        return new Locations();
+    @PutMapping("/org/{org_id}")
+    public Organizations updateOrganizations(@RequestBody Organizations org) {
+        orgsDao.updateOrganization(org);   
+        return new Organizations();
     }
     
-    @DeleteMapping("/location/{loc_id}")
+    @DeleteMapping("/org/{org_id}")
     @ResponseStatus(HttpStatus.OK)
-    public Locations deleteLocation(@PathVariable("loc_id") int locationId) {
-        locationsDao.deleteLocationById(locationId);
-        return new Locations();
+    public Organizations deleteSighting(@PathVariable("org_id") int orgId) {
+        orgsDao.deleteOrganizationById(orgId);
+        return new Organizations();
     }
 }

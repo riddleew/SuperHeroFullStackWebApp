@@ -58,37 +58,5 @@ public class MyController {
     public Supers addSuper(@RequestBody Supers aSuper) {
         return supers.addSuper(aSuper);
     }
-    
-    
-    
-    @GetMapping("/orgs")
-    public List<Organizations> getAllOrgs() {
-        return orgs.getAllOrganizations();
-    }
-    
-    @GetMapping("/org/{org_id}")
-    public Organizations getOrganizationById(@PathVariable("org_id") int orgId) {
-        return orgs.getOrganizationById(orgId);
-    }
-    
-    
-    
-    
-    
-//    @GetMapping("/recentsightings")
-//    public List<Sightings> getRecentSightings() {
-//        return sightings.getRecentSightings();
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
+
 }

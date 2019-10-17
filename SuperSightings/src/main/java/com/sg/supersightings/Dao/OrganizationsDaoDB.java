@@ -10,6 +10,7 @@ import com.sg.supersightings.entity.Organizations;
 import com.sg.supersightings.entity.Supers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -113,6 +114,9 @@ public class OrganizationsDaoDB implements OrganizationsDao {
         final String DELETE_ORG = "DELETE FROM organizations WHERE org_id = ?";
         jdbc.update(DELETE_ORG, id);
     }
+    
+    
+    
 
     public static final class OrgMapper implements RowMapper<Organizations> {
 
@@ -127,4 +131,6 @@ public class OrganizationsDaoDB implements OrganizationsDao {
             return org;
         }
     }
+    
+    
 }

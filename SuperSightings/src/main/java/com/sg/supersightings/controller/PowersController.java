@@ -31,6 +31,11 @@ public class PowersController {
     @Autowired
     PowersDaoDB powersDao;
     
+    @PostMapping("/power")
+    public Powers addPower(@RequestBody Powers power) {
+        return powersDao.addPower(power);
+    }
+    
     @GetMapping("/powers")
     public List<Powers> getAllPowers() {
         return powersDao.getAllPowers();
@@ -52,10 +57,5 @@ public class PowersController {
     public Powers deleteSighting(@PathVariable("power_id") int powerId) {
         powersDao.deletePowerById(powerId);
         return new Powers();
-    }
-    
-    @PostMapping("/power")
-    public Powers addPower(@RequestBody Powers power) {
-        return powersDao.addPower(power);
     }
 }
