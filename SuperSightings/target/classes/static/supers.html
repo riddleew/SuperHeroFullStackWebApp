@@ -1,109 +1,94 @@
 <!DOCTYPE html>
 <html>
-	<head> 
-		<title>Super Sightings!</title>
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.css" rel="stylesheet">
-		<link href="css/styles.css" rel="stylesheet" type="text/css" />
-		<style>
-			.navb {
-				padding-right: 30px
-			}
-			
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<h1 style="font-size: 4.0em" class="text-center">Super Sightings</h1>
-			<br><br>
-			<nav class="text-center">
-				<a class="btn badge-pill" href="home.html">Home</a>
-				<a class="btn badge-pill" href="sightings.html">Sightings</a>
-				<a class="btn badge-pill" href="supers.html">Supers</a>
-				<a class="btn badge-pill" href="powers.html">Powers</a>
-				<a class="btn badge-pill" href="locations.html">Locations</a>
-				<a class="btn badge-pill" href="organizations.html">Organizations</a>	
-			</nav>
-			<br><br><br>
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<div id="powerTableDiv">
-    				<br><br>
-    				<h1 style="font-size: 3.0em" class="text-center">All Powers</h1>
-    				<br> 
-                    
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-whatever="@mdo">Add Power</button>
-                    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="exampleModalLabel">Let's add a new power!</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                  <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Power:</label>
-                                    <input type="text" class="form-control" id="add-power-name">
-                                  </div>
-                                <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Desciption:</label>
-                                    <textarea class="form-control" id="add-power-description"></textarea>
-                                </div>
-                                </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="button" id="confirm-add-power" data-dismiss="modal" class="btn btn-primary">Submit</button>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
+    <head> 
+        <title>Super Sightings!</title>
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/styles.css" rel="stylesheet" type="text/css" />
+        <style>
+            .navb {
+                padding-right: 30px
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 style="font-size: 4.0em" class="text-center">Super Sightings</h1>
+            <br><br>
+            <nav class="text-center">
+                <a class="btn badge-pill" href="home.html">Home</a>
+                <a class="btn badge-pill" href="sightings.html">Sightings</a>
+                <a class="btn badge-pill" href="supers.html">Supers</a>
+                <a class="btn badge-pill" href="powers.html">Powers</a>
+                <a class="btn badge-pill" href="locations.html">Locations</a>
+                <a class="btn badge-pill" href="organizations.html">Organizations</a>   
+            </nav>
+            <br><br><br>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                 
+          <br><br>
+          <h1 style="font-size: 3.0em" class="text-center" id="allSupers">All Supers</h1>
+          <br> 
 
-
-                    <br><br>
-    				<table  id="powerTable" class="table table-hover">
-                        <tr>
-                            <th width="20%">Name</th>
-                            <th width="70%">Description</th>
-                            <th width="5%"></th>
-                            <th width="5%"></th>
-                        </tr>
-                        
-                        <tbody id="contentRows"></tbody>
-                    </table>
-                </div>
-			</div>
-
-			<div id="editFormDiv" style="display: none">
+          <button class="btn badge-primary" onclick="addFunction()" id="add-button">Add Super</button>
+            <div id="addFormDiv" style="display: none">
                 <br><br>
-                <h1 style="font-size: 3.0em" class="text-center">Edit Power</h1>
+                <h1 style="font-size: 3.0em" class="text-center">Add Super</h1>
                 <br><br>
-                <form class="form-horizontal" role="form" id="edit-form">
+                <form class="form-horizontal" role="form" id="add-form">
                     <div class="form-group">
-                        <label for="edit-power-name" class="col-md-4 control-label">
-                            Super Power:
+                        <label for="add-super-name" class="col-md-4 control-label">
+                            Name:
                         </label>
 
                         <div class="col-md-4">
                             <input type="text"
                                    class="form-control"
-                                   id="edit-power-name"
-                                   placeholder="Please insert power" required/>
+                                   id="add-super-name"
+                                   placeholder="" required/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="edit-power-description" class="col-md-4 control-label">
+                        <label for="add-super-description" class="col-md-4 control-label">
                             Description:
                         </label>
 
                         <div class="col-md-4">
                             <input type="text"
                                    class="form-control"
-                                   id="edit-power-description"
-                                   placeholder="e.g. This ability can make you fly!" required/>
+                                   id="add-super-description"
+                                   placeholder="" required/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="add-powers-multiple-selector" class="col-md-4 control-label">
+                            Powers:
+                        </label>
+
+                        <div class="col-md-4">
+                            <select id="add-powers-multiple-selector" style="width: 223px" class="mdb-select md-form" multiple>
+                            
+                            </select>
+                            <label class="mdb-main-label">(Ctrl/Cmd select for multiple)</label>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-orgs-multiple-selector" class="col-md-4 control-label">
+                            Orgs:
+                        </label>
+
+                        <div class="col-md-4">
+                          <select id="add-orgs-multiple-selector" style="width: 223px" class="mdb-select md-form" multiple>
+                            
+                          </select>
+                          <label class="mdb-main-label">(Ctrl/Cmd select for multiple)</label>
+
+
                         </div>
                     </div>
                     
@@ -111,6 +96,104 @@
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-3">
                             <input type="hidden" id="edit-power-id">
+                            <button type="button"
+                                    id="edit-cancel-button"
+                                    class="btn btn-default"
+                                    onclick="hideAddForm()">
+                                Cancel
+                            </button>
+                        </div>
+                        <div class="col-md-offset-4">
+                            <button type="button"
+                                    id="add-submit-button"
+                                    class="btn btn-default"
+                                    style="width: 82px">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div> 
+
+        <div id="superTableDiv">
+
+                    <br><br>
+                    <table  id="orgTable" class="table table-hover">
+                        <tr>
+                            <th width="20%">Name</th>
+                            <th width="40%">Description</th>
+                            <th width="15%">Powers</th>
+                            <th width="15%">Organizations</th>
+                            <th width="5%"></th>
+                            <th width="5%"></th>
+                        </tr>
+                        
+                        <tbody id="contentRows"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="editFormDiv" style="display: none">
+                <br><br>
+                <h1 style="font-size: 3.0em" class="text-center">Edit Organization</h1>
+                <br><br>
+                <form class="form-horizontal" role="form" id="edit-form">
+                    <div class="form-group">
+                        <label for="edit-org-name" class="col-md-4 control-label">
+                            Name:
+                        </label>
+
+                        <div class="col-md-4">
+                            <input type="text"
+                                   class="form-control"
+                                   id="edit-org-name"
+                                   placeholder="Please insert power" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-org-description" class="col-md-4 control-label">
+                            Description:
+                        </label>
+
+                        <div class="col-md-4">
+                            <input type="text"
+                                   class="form-control"
+                                   id="edit-org-description"
+                                   placeholder="e.g. This ability can make you fly!" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-org-hotline" class="col-md-4 control-label">
+                            Hotline:
+                        </label>
+
+                        <div class="col-md-4">
+                            <input type="text"
+                                   class="form-control"
+                                   id="edit-org-hotline"
+                                   placeholder="e.g. This ability can make you fly!" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-org-member" class="col-md-4 control-label">
+                            Members:
+                        </label>
+
+                        <div class="col-md-4">
+                            <select id="edit-members-multiple-selector" style="width: 223px" class="mdb-select md-form" multiple>
+                            
+                            </select>
+                          <label class="mdb-main-label">(Ctrl/Cmd select for multiple)</label>
+
+
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-3">
+                            <input type="hidden" id="edit-org-id">
                             <button type="button"
                                     id="edit-cancel-button"
                                     class="btn btn-default"
@@ -130,10 +213,19 @@
 
                 </form>
             </div>
-			<div class="col-md-2"></div>
-		</div>
-		<script src="js/jquery-2.2.4.min.js"></script>
+
+           
+
+
+
+            <div class="col-md-2"></div>
+        </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+        <script src="js/jquery-2.2.4.min.js"></script>
         <script src="js/bootstrap.js"></script>
+        <!-- <script src="js/jquery.dataTables.min.js"></script> -->
         <script src="js/supers.js"></script>
     </body>
 </html>

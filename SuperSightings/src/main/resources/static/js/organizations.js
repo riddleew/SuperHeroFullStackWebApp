@@ -1,31 +1,19 @@
 $(document).ready(function () {
-	// var sample = "hey i like u";
-	// var sampleTrim = sample.replace(/ +/g, "");
 	
 	loadOrganizations();
 
 	$('#add-submit-button').click(function (event) {
-		var tempArray = $('#members-multiple-selector').val();
-		var arrayLength = tempArray.length;
-		var idList = [];
+		var superSelections = $('#add-members-multiple-selector').val();	
 		var memberList = [];
-		var memberJSON = "";
-		console.log(tempArray);
-		
-		
-		for (var i = 0; i < arrayLength; i++) {
-   		console.log(tempArray[i].substr(0, tempArray[i].indexOf(')')));
-   		var currentInt = parseInt(tempArray[i].substr(0, tempArray[i].indexOf(')')));
-   		var currentSuper = new Object();
-   		currentSuper.id = currentInt;
-   		memberList.push(currentSuper);
-   		memberJSON += '{id: ' + currentInt + '}'
-   		}
-   		console.log('member list is');
-   		console.log(memberList);
-   		// if (i != arrayLength - 1) {
-   		// 	memberJSON += ', ';
-   		// }
+		if (superSelections != null) {
+        for (var i = 0; i < superSelections.length; i++) {
+          
+          var currentId = superSelections[i];
+          var currentSuper = new Object();
+          currentSuper.id = currentId;
+          memberList.push(currentSuper);
+          }
+        }
 
 
    		$.ajax({
@@ -47,6 +35,9 @@ $(document).ready(function () {
         $('#add-org-name').val('');
         $('#add-org-description').val('');
         $('#add-org-hotline').val('');
+        $('#members-multiple-selector').val('');
+
+        hideAddForm();
         loadOrganizations();
       },
       error: function() {
@@ -57,7 +48,58 @@ $(document).ready(function () {
       }
     });
 
-		});
+	});
+
+  $('#edit-update-button').click(function (event) {
+    var superSelections = $('#edit-members-multiple-selector').val();  
+    console.log(superSelections);
+    var memberList = [];
+      if (superSelections != null) {
+        for (var i = 0; i < superSelections.length; i++) {
+          
+          var currentId = superSelections[i];
+          var currentSuper = new Object();
+          currentSuper.id = currentId;
+          memberList.push(currentSuper);
+          }
+        }
+
+      $.ajax({
+      type: 'PUT',
+      url: 'http://localhost:8080/org/' + $('#edit-org-id').val(),
+      data: JSON.stringify({
+        id: $('#edit-org-id').val(),
+        name: $('#edit-org-name').val(),
+        description: $('#edit-org-description').val(),
+        hotline: $('#edit-org-hotline').val(),
+        members: memberList
+      }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      'dataType': 'json',
+      success: function() {
+        $('#errorMessages').empty();
+        // $('#edit-org-name').val('');
+        // $('#edit-org-description').val('');
+        // $('#edit-org-hotline').val('');
+        // $('#edit-members-multiple-selector').val('');
+        $('#editFormDiv').hide();
+        $('#orgTableDiv').show();
+        $('#allOrg').show();
+        $('#add-button').show();
+        loadOrganizations();
+      },
+      error: function() {
+        console.log('nani');
+        $('#errorMessages')
+          .append($('<li>')
+          .attr({class: 'list-group-item list-group-item-danger'})
+          .text('Error calling web service. Please try again later.'));
+      }
+    });
+    });
 
 
 
@@ -115,14 +157,14 @@ function loadOrganizations() {
 				var hotline = org.hotline;
 				var orgId = org.id;
         var superArray = org.members;
-        console.log(superArray);
+        //console.log(superArray);
 
 				var row = '<tr>';
 					  row += '<td>' + name + '</td>';
 				  	row += '<td>' + description + '</td>';
 					  row += '<td>' + hotline + '</td>';
 
-            // inserting unique Member List modaks
+            // inserting unique Member List modals
             row += '<td><a data-toggle="modal" data-target="#testModal' + orgId + '">Members</a>';
             row += '<div class="modal" id="testModal' + orgId + '" tabindex="-1" role="dialog">';
             row += '<div class="modal-dialog" role="document">';
@@ -143,7 +185,7 @@ function loadOrganizations() {
             row += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
             row += '</div></div></div></div></td>';
             // end of Modal
-            		  row += '<td><a onclick="recruitMember(' + orgId + ')">Recruit</a></td>';
+            		  //row += '<td><a onclick="recruitMember(' + orgId + ')">Recruit</a></td>';
 					  row += '<td><a onclick="showEditForm(' + orgId + ')">Edit</a></td>';
 					  row += '<td><a onclick="deleteOrganization(' + orgId + ', \'' + name + '\')">Delete</a></td>';
 					  row += '</tr>';
@@ -167,11 +209,8 @@ function clearOrganizationsTable() {
 	$('#contentRows').empty();
 }
 
-function recruitMember(orgId) {
 
-}
-
-function deleteLocation(orgId, name) {
+function deleteOrganization(orgId, name) {
     if(!confirm('Are you sure you want to remove "' + name + '" from the list?')) {
     	return;
     }
@@ -185,12 +224,13 @@ function deleteLocation(orgId, name) {
 }
 
 function addFunction() {
-	$('#orgTableDiv').hide();
+	clearMultipleSelections();
+  $('#orgTableDiv').hide();
 	$('#allOrg').hide();
 	$('#add-button').hide();
 	$('#addFormDiv').show();
 
-	var selectorOption = $('#members-multiple-selector'); 
+	var selectorOption = $('#add-members-multiple-selector'); 
 	$.ajax({
 		type: 'GET',
 		url: 'http://localhost:8080/supers',
@@ -201,8 +241,7 @@ function addFunction() {
 				var superId = aSuper.id;
 				var idHelper = name.replace(/ +/g, "");
 				
-				var aSuperId = aSuper.id;
-				var option = '<option id="' + idHelper + '">' + superId + ') ' + name + '</option';
+				var option = '<option id="' + idHelper + '" value="'+ superId +'">' + name + '</option';
 				selectorOption.append(option);
 			});
 		},
@@ -216,7 +255,9 @@ function addFunction() {
 
 }
 
-
+function clearMultipleSelections(){
+  $('#add-members-multiple-selector').empty();
+}
 
 function hideAddForm() {
     // clear errorMessages
@@ -230,4 +271,100 @@ function hideAddForm() {
     $('#allOrg').show();
 	$('#add-button').show();
     
+}
+
+function hideEditForm() {
+    // clear errorMessages
+    $('#errorMessages').empty();
+    // clear the form and then hide it
+    $('#edit-org-name').val('');
+    $('#edit-org-description').val('');
+    $('#edit-org-hotline').val('');
+    $('#editFormDiv').hide();
+    $('#orgTableDiv').show();
+    $('#allOrg').show();
+    $('#add-button').show();
+    
+}
+
+function showEditForm(orgId) {
+    // clear errorMessages
+    $('#errorMessages').empty();
+    var allMembers = [];
+    var currentMembers = [];
+    // get the contact details from the server and then fill and show the
+    // form on success
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/org/' + orgId,
+        success: function(data, status) {
+
+              populateMultiple(orgId);
+              var selectionVal = $('#edit-members-multiple-selector').val();
+              console.log('hi');
+              console.log(selectionVal);
+              console.log('hi');
+
+              currentMembers = data.members;
+              for (var i = 0; i < currentMembers.length; i++) {
+
+              }
+
+              $('#edit-org-name').val(data.name);
+              $('#edit-org-description').val(data.description);
+              $('#edit-org-hotline').val(data.hotline);
+              $('#edit-org-id').val(data.id);
+          },
+          error: function() {
+            $('#errorMessages')
+               .append($('<li>')
+               .attr({class: 'list-group-item list-group-item-danger'})
+               .text('Error calling web service.  Please try again later.'));
+          }
+    });
+    $('#orgTableDiv').hide();
+
+    $('#allOrg').hide();
+    $('#add-button').hide();
+    $('#editFormDiv').show();
+    console.log('outside of success');
+    console.log(currentMembers);
+}
+
+function populateMultiple(orgId) {
+  $('#edit-members-multiple-selector').empty();
+  var selectorOption = $('#edit-members-multiple-selector'); 
+  $.ajax({
+    type: 'GET',
+    url: 'http://localhost:8080/supers',
+    success: function(superArray) {
+      $.each(superArray, function(index, aSuper) {
+        
+        var name = aSuper.name;
+        var superId = aSuper.id;
+        var idHelper = name.replace(/ +/g, "");
+
+        var option = '<option id="' + idHelper + '" value="'+ superId +'">' + name + '</option';
+        selectorOption.append(option);
+      });
+    },
+    error: function() {
+      $('#errorMessages')
+        .append($('<li>')
+        .attr({class: 'list-group-item list-group-item-danger'})
+        .text('Error calling web service. Please try again later.'));
+    }
+  });
+}
+
+function hideEditForm() {
+    // clear errorMessages
+    $('#errorMessages').empty();
+    // clear the form and then hide it
+    $('#edit-org-name').val('');
+    $('#edit-org-description').val('');
+    $('#editFormDiv').hide();
+    $('#orgTableDiv').show();
+    $('#allOrg').show();
+    $('#add-button').show();
 }
