@@ -116,7 +116,6 @@ public class OrganizationsDaoDB implements OrganizationsDao {
     }
     
     
-    
 
     public static final class OrgMapper implements RowMapper<Organizations> {
 

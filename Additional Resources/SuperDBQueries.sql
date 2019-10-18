@@ -35,3 +35,6 @@ WHERE DATE(s.sighting_time) = '2019-09-16';
 
 select * from sightings;
 select * from powers;
+select * from locations;
+select * from organizations;
+select * from super_organization;
