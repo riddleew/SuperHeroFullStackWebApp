@@ -6,7 +6,6 @@
 package com.sg.supersightings.Dao;
 
 import com.sg.supersightings.entity.Powers;
-import com.sg.supersightings.entity.Supers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,8 +15,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *

@@ -73,7 +73,6 @@ public class SightingsDaoDB implements SightingsDao {
     @Override
     @Transactional
     public Sightings addSighting(Sightings sighting) {
-        //String formattedDate = sighting.getSightingTime().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
         final String INSERT_SIGHTING = "INSERT INTO sightings(super_id, loc_id, sighting_time) VALUES(?,?,?)";
         jdbc.update(INSERT_SIGHTING,
                 sighting.getSuperId(),
@@ -163,8 +162,6 @@ public class SightingsDaoDB implements SightingsDao {
             sighting.setSuperId(rs.getInt("super_id"));
             sighting.setLocationId(rs.getInt("loc_id"));
             Date date = rs.getDate("sighting_time");
-//            Timestamp timestamp = rs.getTimestamp("sighting_time");
-//            sighting.setSightingTime(timestamp.toLocalDate());
             sighting.setSightingTime(date.toLocalDate());
 
             return sighting;

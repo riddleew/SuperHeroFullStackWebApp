@@ -10,6 +10,7 @@ import com.sg.supersightings.entity.Organizations;
 import com.sg.supersightings.entity.Powers;
 import com.sg.supersightings.entity.Sightings;
 import com.sg.supersightings.entity.Supers;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -110,8 +111,8 @@ public class SightingsDaoDBTest {
         LocalDateTime timestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         String text = timestamp.format(formatter);
-        LocalDateTime parsedDateTime = LocalDateTime.parse(text, formatter);
-        sighting.setSightingTime(parsedDateTime);
+        LocalDate parsedDate = LocalDate.parse(text, formatter);
+        sighting.setSightingTime(parsedDate);
         sighting = sightingsDao.addSighting(sighting);
         
         Sightings fromDao = sightingsDao.getSightingById(sighting.getSightingId());
@@ -150,8 +151,8 @@ public class SightingsDaoDBTest {
         LocalDateTime timestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         String text = timestamp.format(formatter);
-        LocalDateTime parsedDateTime = LocalDateTime.parse(text, formatter);
-        sighting.setSightingTime(parsedDateTime);
+        LocalDate parsedDate = LocalDate.parse(text, formatter);
+        sighting.setSightingTime(parsedDate);
         sighting = sightingsDao.addSighting(sighting);
         
         Supers aSuper2 = new Supers();
@@ -180,8 +181,8 @@ public class SightingsDaoDBTest {
         sighting2.setLocation(location2);
          
         text = timestamp.format(formatter);
-        parsedDateTime = LocalDateTime.parse(text, formatter);
-        sighting2.setSightingTime(parsedDateTime);
+        parsedDate = LocalDate.parse(text, formatter);
+        sighting2.setSightingTime(parsedDate);
         sighting2 = sightingsDao.addSighting(sighting2);
         
         List<Sightings> sightings = sightingsDao.getAllSightings();
@@ -223,8 +224,8 @@ public class SightingsDaoDBTest {
         LocalDateTime timestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         String text = timestamp.format(formatter);
-        LocalDateTime parsedDateTime = LocalDateTime.parse(text, formatter);
-        sighting.setSightingTime(parsedDateTime);
+        LocalDate parsedDate = LocalDate.parse(text, formatter);
+        sighting.setSightingTime(parsedDate);
         sighting = sightingsDao.addSighting(sighting);
         
         
@@ -296,8 +297,8 @@ public class SightingsDaoDBTest {
         LocalDateTime timestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         String text = timestamp.format(formatter);
-        LocalDateTime parsedDateTime = LocalDateTime.parse(text, formatter);
-        sighting.setSightingTime(parsedDateTime);
+        LocalDate parsedDate = LocalDate.parse(text, formatter);
+        sighting.setSightingTime(parsedDate);
         sighting = sightingsDao.addSighting(sighting);
         
         Sightings fromDao = sightingsDao.getSightingById(sighting.getSightingId());

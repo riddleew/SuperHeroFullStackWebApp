@@ -57,7 +57,7 @@ public class PowersDaoDBTest {
     }
 
     @Test
-    public void testAndGetPower() {
+    public void testAddAndGetPower() {
         Powers power = new Powers();
         power.setName("Test Power Name");
         power.setDescription("Test Power Description");

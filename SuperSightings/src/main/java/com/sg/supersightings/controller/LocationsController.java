@@ -7,7 +7,6 @@ package com.sg.supersightings.controller;
 
 import com.sg.supersightings.Dao.LocationsDaoDB;
 import com.sg.supersightings.entity.Locations;
-import com.sg.supersightings.entity.Powers;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

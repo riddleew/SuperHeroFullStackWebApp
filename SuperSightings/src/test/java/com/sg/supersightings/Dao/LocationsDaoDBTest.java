@@ -6,7 +6,6 @@
 package com.sg.supersightings.Dao;
 
 import com.sg.supersightings.entity.Locations;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
