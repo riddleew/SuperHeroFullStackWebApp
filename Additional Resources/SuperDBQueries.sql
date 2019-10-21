@@ -38,3 +38,4 @@ select * from powers;
 select * from locations;
 select * from organizations;
 select * from super_organization;
+select * from supers;

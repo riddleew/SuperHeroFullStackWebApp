@@ -8,9 +8,11 @@ package com.sg.supersightings.Dao;
 import com.sg.supersightings.entity.Locations;
 import com.sg.supersightings.entity.Sightings;
 import com.sg.supersightings.entity.Supers;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -71,10 +73,12 @@ public class SightingsDaoDB implements SightingsDao {
     @Override
     @Transactional
     public Sightings addSighting(Sightings sighting) {
-        final String INSERT_SIGHTING = "INSERT INTO sightings(super_id, loc_id) VALUES(?,?)";
+        //String formattedDate = sighting.getSightingTime().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
+        final String INSERT_SIGHTING = "INSERT INTO sightings(super_id, loc_id, sighting_time) VALUES(?,?,?)";
         jdbc.update(INSERT_SIGHTING,
                 sighting.getSuperId(),
-                sighting.getLocationId());
+                sighting.getLocationId(),
+                sighting.getSightingTime());
 
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         sighting.setSightingId(newId);
@@ -158,9 +162,10 @@ public class SightingsDaoDB implements SightingsDao {
             sighting.setSightingId(rs.getInt("sighting_id"));
             sighting.setSuperId(rs.getInt("super_id"));
             sighting.setLocationId(rs.getInt("loc_id"));
-            
-            Timestamp timestamp = rs.getTimestamp("sighting_time");
-            sighting.setSightingTime(timestamp.toLocalDateTime());
+            Date date = rs.getDate("sighting_time");
+//            Timestamp timestamp = rs.getTimestamp("sighting_time");
+//            sighting.setSightingTime(timestamp.toLocalDate());
+            sighting.setSightingTime(date.toLocalDate());
 
             return sighting;
         }

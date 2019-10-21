@@ -5,8 +5,9 @@
  */
 package com.sg.supersightings.controller;
 
-import com.sg.supersightings.Dao.PowersDaoDB;
-import com.sg.supersightings.entity.Powers;
+
+import com.sg.supersightings.Dao.SupersDaoDB;
+import com.sg.supersightings.entity.Supers;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,40 +23,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author riddl
+ * @author EricR
  */
 @RestController
 @RequestMapping("/")
-public class PowersController {
+public class SupersController {
     
     @Autowired
-    PowersDaoDB powersDao;
+    SupersDaoDB superDao;
     
-    @PostMapping("/power")
-    public Powers addPower(@RequestBody Powers power) {
-        return powersDao.addPower(power);
+    @PostMapping("/super")
+    public Supers addSuper(@RequestBody Supers aSuper) {
+        return superDao.addSuper(aSuper);
     }
     
-    @GetMapping("/powers")
-    public List<Powers> getAllPowers() {
-        return powersDao.getAllPowers();
+    @GetMapping("/supers")
+    public List<Supers> getAllSupers() {
+        return superDao.getAllSupers();
     }
     
-    @GetMapping("/power/{power_id}")
-    public Powers getPowerById(@PathVariable("power_id") int powerId) {
-        return powersDao.getPowerById(powerId);
+    @GetMapping("/super/{super_id}")
+    public Supers getSuperById(@PathVariable("super_id") int superId) {
+        return superDao.getSuperById(superId);
     }
     
-    @PutMapping("/power/{power_id}")
-    public Powers updatePower(@RequestBody Powers power) {
-        powersDao.updatePower(power);   
-        return new Powers();
+    @PutMapping("/super/{super_id}")
+    public Supers updateSuper(@RequestBody Supers aSuper) {
+        superDao.updateSuper(aSuper);   
+        return new Supers();
     }
     
-    @DeleteMapping("/power/{power_id}")
+    @DeleteMapping("/super/{super_id}")
     @ResponseStatus(HttpStatus.OK)
-    public Powers deletePower(@PathVariable("power_id") int powerId) {
-        powersDao.deletePowerById(powerId);
-        return new Powers();
+    public Supers deleteSuper(@PathVariable("super_id") int superId) {
+        superDao.deleteSuperById(superId);
+        return new Supers();
     }
 }

@@ -17,13 +17,16 @@ function loadRecentSightings() {
 				var location = sighting.location.name;
 				var datetime = sighting.sightingTime;
 				var date = datetime.substring(0,10)
-				var time = datetime.substring(11,19)
+				//var time = datetime.substring(11,19)
 
 				var row = '<tr>';
-					row += '<td>' + name + '</td>';
+					if (!sighting.aSuper.isHero) {
+						row += '<td style="color: red">' + name + '</td>';
+					} else {
+						row += '<td style="color: blue">' + name + '</td>';
+					}
 					row += '<td>' + location + '</td>';
 					row += '<td>' + date + '</td>';
-					row += '<td>' + time + '</td>';
 					row += '</tr>';
 
 				contentRows.append(row);

@@ -1,53 +1,247 @@
 <!DOCTYPE html>
 <html>
-	<head> 
-		<title>Super Sightings!</title>
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.css" rel="stylesheet">
-		<link href="css/styles.css" rel="stylesheet" type="text/css" />
-		<style>
-			.navb {
-				padding-right: 30px
-			}
-			
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<h1 style="font-size: 4.0em" class="text-center">Super Sightings</h1>
-			<br><br>
-			<nav class="text-center">
-				<a class="btn badge-pill" href="home.html">Home</a>
-				<a class="btn badge-pill" href="sightings.html">Sightings</a>
-				<a class="btn badge-pill" href="supers.html">Supers</a>
-				<a class="btn badge-pill" href="powers.html">Powers</a>
-				<a class="btn badge-pill" href="locations.html">Locations</a>
-				<a class="btn badge-pill" href="organizations.html">Organizations</a>	
-			</nav>
-			<br><br><br>
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				
-				<br><br>
-				<h1 style="font-size: 3.0em" class="text-center">All Sightings</h1>
-				<br>
-				<table id="contactTable" class="table table-hover">
-                            <tr>
-                                <th width="20%">Super Name</th>
-                                <th width="20%">Place</th>
-                                <th width="20%">Date</th>
-                                <th width="20%">Time</th>
-                                <th width="10%"></th>
-                                <th width="10%"></th>
-                            </tr>
-                            
-                            <tbody id="contentRows"></tbody>
-                        </table>
-			</div>
-			<div class="col-md-2"></div>
-		</div>
-		<script src="js/jquery-2.2.4.min.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/sightings.js"></script>
-    </body>
+<head>
+    <title>Super Sightings!</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .navb {
+            padding-right: 30px
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 style="font-size: 4.0em" class="text-center">Super Sightings</h1>
+    <br><br>
+    <ul class="list-group" id="errorMessages"></ul>
+    <nav class="text-center">
+        <a class="btn badge-pill" href="home.html">Home</a>
+        <a class="btn badge-pill" href="sightings.html">Sightings</a>
+        <a class="btn badge-pill" href="supers.html">Supers</a>
+        <a class="btn badge-pill" href="powers.html">Powers</a>
+        <a class="btn badge-pill" href="locations.html">Locations</a>
+        <a class="btn badge-pill" href="organizations.html">Organizations</a>
+    </nav>
+    <br><br><br>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <br><br>
+        <h1 style="font-size: 3.0em" class="text-center" id="allSightings">All Sightings</h1>
+        <br>
+
+        <button class="btn badge-primary" onclick="addFunction()" id="add-button">Report Sighting</button>
+        <div id="addFormDiv" style="display: none">
+
+            <br><br>
+            <h1 style="font-size: 3.0em" class="text-center">Report a Sighting</h1>
+            <br><br>
+            <form class="form-horizontal" role="form" id="add-form">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="form-group">
+                        <label for="add-select-super">Select Super</label>
+                        <select class="form-control" id="add-select-super">
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="add-select-location">Select location</label>
+                        <select class="form-control" id="add-select-location">
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="add-sighting-date" class="col-md-4 control-label">
+                        Date:
+                    </label>
+
+                    <div class="col-md-4">
+                        <input type="date"
+                               class="form-control"
+                               id="add-sighting-date"
+                               style="width:295px"
+                               placeholder="yyyy-mm-dd" required/>
+                    </div>
+                </div>
+
+
+                <br><br>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-3">
+                        <input type="hidden" id="add-super-id">
+                        <button type="button"
+                                id="add-cancel-button"
+                                class="btn btn-default"
+                                onclick="hideAddForm()">
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="col-md-offset-7">
+                        <button type="button"
+                                id="add-submit-button"
+                                class="btn btn-default"
+                                style="width: 82px">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+
+        <button class="btn badge-primary" id="search-date-button">Search by date</button>
+        <div id="searchDateDiv" style="display: none">
+            <form class="form-horizontal" role="form" id="search-date">
+                <div class="form-group">
+                    <label for="search-sighting-date" class="col-md-4 control-label">
+                        Date:
+                    </label>
+
+                    <div class="col-md-4">
+                        <input type="date"
+                               class="form-control"
+                               id="search-sighting-date"
+                               style="width:295px"
+                               placeholder="yyyy-mm-dd" required/>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-3">
+                        <input type="hidden" id="edit-sighting-id">
+                        <button type="button"
+                                id="search-date-cancel-button"
+                                class="btn btn-default">
+
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="col-md-offset-5">
+                        <button type="button"
+                                id="search-confirm-button"
+                                class="btn btn-default"
+                                style="width: 82px">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <button class="btn badge-primary" style="display: none" id="search-date-back-button">Back</button>
+
+
+        <br><br>
+        <div id="sightingTableDiv">
+
+            <table id="contactTable" class="table table-hover">
+                <tr>
+                    <th width="20%">Super Name</th>
+                    <th width="20%">Place</th>
+                    <th width="20%">Date</th>
+                    <th width="10%"></th>
+                    <th width="10%"></th>
+                </tr>
+
+                <tbody id="contentRows"></tbody>
+            </table>
+        </div>
+
+        <div id="sightingByDateTableDiv" style="display:none">
+
+            <table id="contactTable" class="table table-hover">
+                <tr>
+                    <th width="20%">Super Name</th>
+                    <th width="20%">Place</th>
+                    <th width="20%">Date</th>
+                    <th width="10%"></th>
+                    <th width="10%"></th>
+                </tr>
+
+                <tbody id="byDateContentRows"></tbody>
+            </table>
+        </div>
+
+
+        <div id="editFormDiv" style="display: none">
+
+            <br><br>
+            <h1 style="font-size: 3.0em" class="text-center">Edit Sighting</h1>
+            <br><br>
+            <form class="form-horizontal" role="form" id="edit-form">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="form-group">
+                        <label for="edit-select-super">Select Super</label>
+                        <select class="form-control" id="edit-select-super">
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="edit-select-location">Select location</label>
+                        <select class="form-control" id="edit-select-location">
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-sighting-date" class="col-md-4 control-label">
+                        Date:
+                    </label>
+
+                    <div class="col-md-4">
+                        <input type="date"
+                               class="form-control"
+                               id="edit-sighting-date"
+                               style="width:295px"
+                               placeholder="yyyy-mm-dd" required/>
+                    </div>
+                </div>
+
+
+                <br><br>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-3">
+                        <input type="hidden" id="edit-sighting-id">
+                        <button type="button"
+                                id="edit-cancel-button"
+                                class="btn btn-default"
+                                onclick="hideEditForm()">
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="col-md-offset-7">
+                        <button type="button"
+                                id="edit-update-button"
+                                class="btn btn-default"
+                                style="width: 82px">
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<script src="js/jquery-2.2.4.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/sightings.js"></script>
+</body>
 </html>

@@ -41,7 +41,7 @@ CREATE TABLE Sightings (
 	sighting_id INT PRIMARY KEY AUTO_INCREMENT,
     super_id INT NOT NULL,
     loc_id INT NOT NULL,
-    sighting_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    sighting_time DATE,
     FOREIGN KEY (super_id) REFERENCES Supers (super_id),
     FOREIGN KEY (loc_id) REFERENCES Locations (loc_id)
 );

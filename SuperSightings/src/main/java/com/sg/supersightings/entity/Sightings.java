@@ -5,6 +5,7 @@
  */
 package com.sg.supersightings.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class Sightings {
     private int locationId;
     private Supers aSuper;
     private Locations location;
-    private LocalDateTime sightingTime;
+    private LocalDate sightingTime;
 
     public Sightings() {
     }
@@ -30,7 +31,7 @@ public class Sightings {
         this.locationId = locationId;
     }
 
-    public Sightings(int sightingId, int superId, int locationId, Supers aSuper, Locations location, LocalDateTime sightingTime) {
+    public Sightings(int sightingId, int superId, int locationId, Supers aSuper, Locations location, LocalDate sightingTime) {
         this.sightingId = sightingId;
         this.superId = superId;
         this.locationId = locationId;
@@ -79,11 +80,11 @@ public class Sightings {
         this.location = location;
     }
 
-    public LocalDateTime getSightingTime() {
+    public LocalDate getSightingTime() {
         return sightingTime;
     }
 
-    public void setSightingTime(LocalDateTime sightingTime) {
+    public void setSightingTime(LocalDate sightingTime) {
         this.sightingTime = sightingTime;
     }
 

@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +38,11 @@ public class SightingsController {
     @Autowired
     SightingsDaoDB sightingsDao;
     
+    @PostMapping("/sighting")
+    public Sightings addOrganizations(@RequestBody Sightings sighting) {
+        return sightingsDao.addSighting(sighting);
+    }
+    
     @GetMapping("/sightings")
     public List<Sightings> getAllSightings() {
         return sightingsDao.getAllSightings();
@@ -48,6 +56,15 @@ public class SightingsController {
     @GetMapping("/sighting/{sighting_id}")
     public Sightings getSightingById(@PathVariable("sighting_id") int sightingId) {
         return sightingsDao.getSightingById(sightingId);
+    }
+    
+    @PutMapping("/sighting/{sighting_id}")
+    public Sightings updateSighting(@RequestBody Sightings sighting) {
+        System.out.println("hey");
+        System.out.println(sighting.toString());
+        sightingsDao.updateSighting(sighting);
+        System.out.println("hi");
+        return new Sightings();
     }
     
     @GetMapping("/supersbylocation/{loc_id}")
@@ -65,19 +82,11 @@ public class SightingsController {
         return sightingsDao.getLocationsBySuper(superId);
     }
     
-//    @DeleteMapping("/sighting/{sighting_id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void deleteSighting(@PathVariable("sighting_id") int sightingId) {
-//        sightingsDao.deleteSightingById(sightingId);
-//    }
-    
     @DeleteMapping("/sighting/{sighting_id}")
-    @CrossOrigin(origins = "http://localhost:8080")
-    public ResponseEntity deleteSighting(@PathVariable("sighting_id") int sightingId) {
-    
-        return new ResponseEntity(HttpStatus.OK);
-    
-    
-}
+    @ResponseStatus(HttpStatus.OK)
+    public Sightings deleteSighting(@PathVariable("sighting_id") int sightingId) {
+        sightingsDao.deleteSightingById(sightingId);
+        return new Sightings();
+    }
     
 }
